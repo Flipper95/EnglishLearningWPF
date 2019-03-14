@@ -1,0 +1,11 @@
+﻿<Application x:Class="SystemForEnglishLearning.App"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             StartupUri="Registration/View/MainWindow.xaml">
+             <!--"Tests/TestChoice.xaml">-->
+    <!--"Tests/TestHistory.xaml">-->
+    <!--"Lections/LectionChoice.xaml">--><!--"Registration/View/MainWindow.xaml">--><!--"Registration/View/MainWindow.xaml">-->
+    <Application.Resources>
+         
+    </Application.Resources>
+</Application>

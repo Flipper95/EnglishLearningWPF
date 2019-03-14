@@ -1,0 +1,48 @@
+﻿<Window x:Class="SystemForEnglishLearning.Statistics.Statistics"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:chartingToolkit="clr-namespace:System.Windows.Controls.DataVisualization.Charting;assembly=System.Windows.Controls.DataVisualization.Toolkit"
+        Title="Статистика" Height="300" Width="300">
+    <Window.Resources>
+        <Style x:Key="titleStyle" TargetType="{x:Type chartingToolkit:LegendItem}">
+            <Setter Property="Background" Value="Transparent"></Setter>
+        </Style>
+    </Window.Resources>
+    <Grid>
+        <Grid.Background>
+            <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
+                <GradientStop Color="#FFB6D2EE" Offset="0"/>
+                <GradientStop Color="#FFE8BFFF" Offset="1"/>
+            </LinearGradientBrush>
+        </Grid.Background>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="*" />
+            <RowDefinition Height="Auto" />
+        </Grid.RowDefinitions>
+        <Grid Grid.Row="0">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*" />
+                <ColumnDefinition Width="*" />
+                <ColumnDefinition Width="*" />
+                <ColumnDefinition Width="*" />
+            </Grid.ColumnDefinitions>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="*" />
+                <RowDefinition Height="*" />
+            </Grid.RowDefinitions>
+            <ComboBox Name="cb_Choice" SelectedIndex="0" Grid.ColumnSpan="2" SelectionChanged="cb_Choice_SelectionChanged"></ComboBox>
+            <Viewbox Grid.ColumnSpan="4" Grid.Row="1">
+                <TextBlock Name="chart_Text"/>
+            </Viewbox>
+        </Grid>
+        <chartingToolkit:Chart Grid.Row="1" Background="Transparent">
+            <chartingToolkit:Chart.Axes>
+                <chartingToolkit:LinearAxis Orientation="Y" Minimum="0"></chartingToolkit:LinearAxis>
+            </chartingToolkit:Chart.Axes>
+            <chartingToolkit:ColumnSeries x:Name="Chart" DependentValuePath="Count" IndependentValuePath="Date" Background="Transparent">
+            </chartingToolkit:ColumnSeries>
+        </chartingToolkit:Chart>
+        <Button Content="История тестов" Grid.Row="2" Click="History_Click_1"/>
+    </Grid>
+</Window>

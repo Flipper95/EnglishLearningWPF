@@ -1,0 +1,134 @@
+﻿<Window x:Class="SystemForEnglishLearning.WordLearning.Dictionary.GroupWords"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        Title="Выбор слов для изучения" Height="400" Width="400">
+    <Window.Resources>
+        <Style TargetType="DataGridRow">
+            <Setter Property="Background" Value="Transparent"></Setter>
+            <Setter Property="FontSize" Value="18px"></Setter>
+            <Setter Property="FontWeight" Value="Bold"></Setter>
+            <Setter Property="FontStretch" Value="UltraExpanded"></Setter>
+         </Style>
+        <!--<Style TargetType="DataGridCell">
+            <Setter Property="TextBlock.TextAlignment" Value="Center"></Setter>
+        </Style>-->
+        <Style x:Key="BorderStyle" TargetType="Border">
+            <Setter Property="BorderBrush" Value="Azure"/>
+            <Setter Property="Margin" Value="5" />
+            <Setter Property="Background" Value="#FF89AEF0" />
+            <EventSetter Event="MouseEnter" Handler="Border_MouseEnter_1" />
+            <EventSetter Event="MouseLeave" Handler="Border_MouseLeave_1" />
+        </Style>
+    </Window.Resources>
+    
+    <Grid>
+        <Grid.Background>
+            <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
+                <GradientStop Color="#FFB6D2EE" Offset="0"/>
+                <GradientStop Color="#FFE8BFFF" Offset="1"/>
+            </LinearGradientBrush>
+        </Grid.Background>
+
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="*" />
+            <ColumnDefinition Width="*" />
+            <ColumnDefinition Width="*" />
+            <ColumnDefinition Width="*" />
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="*" />
+            <RowDefinition Height="*" />
+            <RowDefinition Height="*" />
+            <RowDefinition Height="*" />
+            <RowDefinition Height="*" />
+            <RowDefinition Height="*" />
+            <RowDefinition Height="*" />
+            <RowDefinition Height="*" />
+            <RowDefinition Height="*" />
+            <RowDefinition Height="*" />
+            <RowDefinition Height="*" />
+            <!--<RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />-->
+        </Grid.RowDefinitions>
+
+        <Viewbox Grid.Column="0" Name="vb_Word">
+            <TextBox Name="tb_Word" Margin="2" ToolTip="Англ.Слово" MinWidth="80" MaxWidth="80"></TextBox>
+        </Viewbox>
+        <Viewbox Grid.Column="1">
+            <TextBox Name="tb_Translate" Margin="2" ToolTip="Перевод" MinWidth="80" MaxWidth="80"></TextBox>
+        </Viewbox>
+        <Border Style="{StaticResource BorderStyle}" Grid.Column="2" Name="btn_Search" MouseLeftButtonUp="btn_Search_MouseLeftButtonUp_1">
+            <Viewbox>
+                <Label>Поиск</Label>
+            </Viewbox>
+        </Border>
+
+        <Viewbox Grid.Column="3" Margin="5,0,5,0">
+            <CheckBox Name="CheckAll"  VerticalAlignment="Center" Unchecked="CheckAll_Checked_1" Checked="CheckAll_Checked_1">Отметить все</CheckBox>
+        </Viewbox>
+            
+        <Grid Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="4" Grid.RowSpan="8">
+            <!--<ScrollViewer>
+            <StackPanel Name="DataStackPanel">
+                <Border Style="{StaticResource BorderStyle}">
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*" />
+                        <ColumnDefinition Width="*" />
+                        <ColumnDefinition Width="*" />
+                    </Grid.ColumnDefinitions>
+                            <Border Style="{StaticResource BorderStyle}">
+                        <Viewbox Height="30">
+                            <TextBlock Text="Slovo"/>
+                        </Viewbox>
+                    </Border>
+                            <Border Style="{StaticResource BorderStyle}" Grid.Column="1">
+                        <Viewbox Height="30">
+                            <TextBlock Text="Перевод"/>
+                        </Viewbox>
+                    </Border>
+                            <Border Style="{StaticResource BorderStyle}" Grid.Column="2">
+                                <Viewbox Height="30">
+                                    <TextBlock Text="Отметить"/>
+                                </Viewbox>
+                            </Border>
+                </Grid>
+                </Border>
+                
+                </StackPanel>
+            </ScrollViewer>-->
+            <DataGrid x:Name="DataGrid" ItemsSource="{Binding}" Background="Transparent" AutoGenerateColumns="False" ColumnWidth="*" VirtualizingStackPanel.IsVirtualizing="False">
+                <DataGrid.Columns>
+                    <DataGridTextColumn x:Name="WordId" Binding="{Binding Path=WordId}" Visibility="Collapsed"></DataGridTextColumn>
+                    <DataGridTextColumn x:Name="Word" TextBlock.TextAlignment="Center" Header="Слово" Binding="{Binding Path=Word}" IsReadOnly="True"></DataGridTextColumn>
+                    <DataGridTextColumn x:Name="Translate" Header="Перевод" Binding="{Binding Path=Translate}" IsReadOnly="True" Width="Auto"></DataGridTextColumn>
+                    <DataGridCheckBoxColumn x:Name="OnLearning" Header="Отметить" Binding="{Binding OnLearning, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"></DataGridCheckBoxColumn>
+                </DataGrid.Columns>
+            </DataGrid>
+        </Grid>
+        <Border Style="{StaticResource BorderStyle}" Grid.Row="9" Grid.Column="0" PreviewMouseLeftButtonUp="btn_Next_MouseLeftButtonUp_1" Name="btn_Prev">
+            <Viewbox>
+                <Label>Предыдущая</Label>
+            </Viewbox>
+        </Border>
+        <Border Style="{StaticResource BorderStyle}" Grid.Row="9" Grid.Column="3" PreviewMouseLeftButtonUp="btn_Next_MouseLeftButtonUp_1" Name="btn_Next">
+            <Viewbox>
+                <Label>Следующая</Label>
+            </Viewbox>
+        </Border>
+        <Border Style="{StaticResource BorderStyle}" Grid.Row="10" Grid.Column="0" Grid.ColumnSpan="2" MouseLeftButtonUp="btn_Exit_Click" Name="btn_Exit">
+            <Viewbox>
+                <Label>Выйти</Label>
+            </Viewbox>
+        </Border>
+        <Border Style="{StaticResource BorderStyle}" Grid.Row="10" Grid.Column="2" Grid.ColumnSpan="2" MouseLeftButtonUp="btn_Add_Click" Name="btn_Add">
+            <Viewbox>
+                <Label>Добавить отмеченные</Label>
+            </Viewbox>
+        </Border>
+        <!--<Button Grid.Row="1" Grid.Column="0" PreviewMouseLeftButtonUp="btn_Next_MouseLeftButtonUp_1" Name="btn_Prev" Content="Prev" Margin="0,0,0,6" HorizontalAlignment="Left" MinWidth="80"/>-->
+        <!--<Button Grid.Row="1" Grid.Column="1" PreviewMouseLeftButtonUp="btn_Next_MouseLeftButtonUp_1" Name="btn_Next" Content="Next" Margin="0,0,0,6" HorizontalAlignment="Right" MinWidth="80"/>
+        <Button Grid.Row="2" Grid.Column="0" Name="btn_Exit" Content="Выйти" Margin="3" Click="btn_Exit_Click"/>
+        <Button Grid.Row="2" Grid.Column="1" Name="btn_Add" Content="Добавить отмеченные" Margin="3" Click="btn_Add_Click"/>-->
+    </Grid>
+</Window>

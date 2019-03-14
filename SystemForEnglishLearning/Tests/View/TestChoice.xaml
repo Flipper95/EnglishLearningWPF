@@ -1,0 +1,117 @@
+﻿<Window x:Class="SystemForEnglishLearning.Tests.TestChoice"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:self="clr-namespace:SystemForEnglishLearning.Tests"
+        Title="Выбор теста" Height="400" Width="400" MinHeight="300" MinWidth="300">
+    <Window.Resources>
+        <DataTemplate x:Key="myCellTemplate">
+            <Viewbox MinHeight="30" Stretch="Fill">
+                <TextBlock Text="{Binding Path=Name}"></TextBlock>
+            </Viewbox>
+        </DataTemplate>
+        <Style x:Key="itemStyle" TargetType="{x:Type TreeViewItem}">
+            <EventSetter Event="PreviewMouseDoubleClick" Handler="HandleDoubleClick" />
+        </Style>
+        <Style x:Key="btn_delete" TargetType="{x:Type Button}">
+            <EventSetter Event="Click" Handler="Delete_Click_1"/>
+        </Style>
+    </Window.Resources>
+    <Grid>
+        <Grid.Background>
+            <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
+                <GradientStop Color="#FFB6D2EE" Offset="0"/>
+                <GradientStop Color="#FFE8BFFF" Offset="1"/>
+            </LinearGradientBrush>
+        </Grid.Background>
+        <TabControl Background="Transparent" >
+            <TabItem Header="Стандартные">
+                <TreeView Name="Tree" HorizontalContentAlignment="Stretch" VerticalContentAlignment="Stretch" ScrollViewer.HorizontalScrollBarVisibility="Disabled" Background="Transparent" ItemContainerStyle="{StaticResource itemStyle}">
+                    <TreeView.Resources>
+                        <HierarchicalDataTemplate DataType="{x:Type self:TestGroupModel}" ItemsSource="{Binding Items}">
+                            <Grid Name="lectionType" Width="{Binding ActualWidth, ElementName=Tree, Mode=Default}">
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="*" />
+                                    <ColumnDefinition Width="*" />
+                                    <ColumnDefinition Width="*" />
+                                    <ColumnDefinition Width="*" />
+                                    <ColumnDefinition Width="*" />
+                                    <ColumnDefinition Width="*" />
+                                </Grid.ColumnDefinitions>
+                                <Viewbox Grid.Column="0" Grid.ColumnSpan="2">
+                                    <TextBlock Text="{Binding Type}"/>
+                                </Viewbox>
+                            </Grid>
+                        </HierarchicalDataTemplate>
+                        <DataTemplate DataType="{x:Type self:TestsModel}">
+                            <Grid Width="{Binding ActualWidth, ElementName=Tree, Mode=Default}">
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="*" />
+                                    <ColumnDefinition Width="*" />
+                                    <ColumnDefinition Width="*" />
+                                    <ColumnDefinition Width="*" />
+                                    <ColumnDefinition Width="*" />
+                                    <ColumnDefinition Width="*" />
+                                </Grid.ColumnDefinitions>
+                                <Grid.RowDefinitions>
+                                    <RowDefinition Height="Auto"></RowDefinition>
+                                </Grid.RowDefinitions>
+                                <Viewbox Grid.Column="0" Grid.ColumnSpan="2">
+                                    <TextBlock Text="{Binding Path=Name}" Tag="{Binding Path=TestId}"></TextBlock>
+                                </Viewbox>
+                            </Grid>
+                        </DataTemplate>
+                    </TreeView.Resources>
+                </TreeView>
+            </TabItem>
+            <TabItem Header="Мои">
+                <Grid>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto"></RowDefinition>
+                        <RowDefinition Height="*"></RowDefinition>
+                    </Grid.RowDefinitions>
+                    <Button Background="Transparent" Content="Создать тест" FontSize="20" PreviewMouseLeftButtonDown="CreateButton_MouseLeftButtonDown_1"/>
+                <TreeView Name="myTree" HorizontalContentAlignment="Stretch" VerticalContentAlignment="Stretch" ScrollViewer.HorizontalScrollBarVisibility="Disabled" Background="Transparent" ItemContainerStyle="{StaticResource itemStyle}" Grid.Row="1">
+                    <TreeView.Resources>
+                        <HierarchicalDataTemplate DataType="{x:Type self:TestGroupModel}" ItemsSource="{Binding Items}">
+                            <Grid Name="lectionType" Width="{Binding ActualWidth, ElementName=Tree, Mode=Default}">
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="*" />
+                                    <ColumnDefinition Width="*" />
+                                    <ColumnDefinition Width="*" />
+                                    <ColumnDefinition Width="*" />
+                                    <ColumnDefinition Width="*" />
+                                    <ColumnDefinition Width="*" />
+                                </Grid.ColumnDefinitions>
+                                <Viewbox Grid.Column="0" Grid.ColumnSpan="2">
+                                    <TextBlock Text="{Binding Type}"/>
+                                </Viewbox>
+                            </Grid>
+                        </HierarchicalDataTemplate>
+                        <DataTemplate DataType="{x:Type self:TestsModel}">
+                            <Grid Width="{Binding ActualWidth, ElementName=Tree, Mode=Default}">
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="*" />
+                                    <ColumnDefinition Width="*" />
+                                    <ColumnDefinition Width="*" />
+                                    <ColumnDefinition Width="*" />
+                                    <ColumnDefinition Width="*" />
+                                    <ColumnDefinition Width="*" />
+                                </Grid.ColumnDefinitions>
+                                <Grid.RowDefinitions>
+                                    <RowDefinition Height="Auto"></RowDefinition>
+                                </Grid.RowDefinitions>
+                                <Viewbox Grid.Column="0" Grid.ColumnSpan="2">
+                                    <TextBlock Text="{Binding Path=Name}" Tag="{Binding Path=TestId}"></TextBlock>
+                                </Viewbox>
+                                    <Viewbox Grid.Column="3" Grid.ColumnSpan="2" VerticalAlignment="Center" HorizontalAlignment="Center">
+                                        <Button Style="{StaticResource btn_delete}" Content="Удалить тест" Tag="{Binding Path=TestId}" Background="Transparent"/>
+                                    </Viewbox>
+                                </Grid>
+                        </DataTemplate>
+                    </TreeView.Resources>
+                </TreeView>
+                </Grid>
+            </TabItem>
+        </TabControl>
+    </Grid>
+</Window>
